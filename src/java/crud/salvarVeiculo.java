@@ -15,6 +15,12 @@ import org.json.JSONObject;
 @WebServlet(name = "salvarVeiculo", urlPatterns = {"/salvarVeiculo"})
 public class salvarVeiculo extends HttpServlet {
     
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        SQLiteConnectionManager.createTable();
+    }
+    
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // Obter os valores dos campos do formulário
@@ -50,6 +56,7 @@ public class salvarVeiculo extends HttpServlet {
         }
 
         // Aqui você pode fazer a lógica para salvar os dados do veículo no banco de dados
+        // ...
         try (Connection conn = SQLiteConnectionManager.getConnection()) {
             String sql = "INSERT INTO veiculo (modelo, marca, cor, placa, renavam, ano, preco) VALUES (?, ?, ?, ?, ?, ?, ?)";
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -61,14 +68,17 @@ public class salvarVeiculo extends HttpServlet {
                 stmt.setInt(6, ano);
                 stmt.setDouble(7, preco);
                 stmt.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                return;
             }
         } catch (SQLException e) {
-            // Trate a exceção de forma apropriada
             e.printStackTrace();
-            // Defina o código de status HTTP para indicar um erro interno do servidor, se necessário
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             return;
         }
+
         
         // Criar um objeto JSON com os dados do veículo
         JSONObject veiculoJson = new JSONObject();

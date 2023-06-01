@@ -43,4 +43,14 @@
 <security-role>
     <role-name>admin</role-name>
 </security-role>
+
+<servlet>
+    <servlet-name>salvarVeiculo</servlet-name>
+    <servlet-class>crud.salvarVeiculo</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>salvarVeiculo</servlet-name>
+    <url-pattern>/salvarVeiculo</url-pattern>
+</servlet-mapping>
+
 </glassfish-web-app>
