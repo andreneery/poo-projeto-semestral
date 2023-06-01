@@ -43,6 +43,16 @@
         
         <input type="submit" value="Cadastrar">
     </form>
+    
+    <script>
+        // Verifica se há uma mensagem de sucess na URL
+        var urlParams = new URLSearchParams(window.location.search);
+        var sucess = urlParams.get('sucess');
+        if (sucess) {
+            // Exibe um pop-up com a mensagem de erro
+            alert(decodeURIComponent(sucess));
+        }
+    </script>
 </body>
 </html>
 <% } %>

@@ -55,8 +55,7 @@ public class salvarVeiculo extends HttpServlet {
             return;
         }
 
-        // Aqui você pode fazer a lógica para salvar os dados do veículo no banco de dados
-        // ...
+        // lógica para salvar os dados do veículo no banco de dados
         try (Connection conn = SQLiteConnectionManager.getConnection()) {
             String sql = "INSERT INTO veiculo (modelo, marca, cor, placa, renavam, ano, preco) VALUES (?, ?, ?, ?, ?, ?, ?)";
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -93,7 +92,11 @@ public class salvarVeiculo extends HttpServlet {
         // Definir o tipo de conteúdo da resposta como JSON
         response.setContentType("application/json");
         
-        // Escrever o JSON na resposta
-        response.getWriter().write(veiculoJson.toString());
+//        // Escrever o JSON na resposta
+//        response.getWriter().write(veiculoJson.toString());
+
+        String sucessCreate = "Dados armazenado com sucesso.";
+        String encodedMessage = java.net.URLEncoder.encode(sucessCreate, "UTF-8");
+        response.sendRedirect(request.getContextPath() + "/cadastroVeiculo.jsp?sucess=" + encodedMessage);
     }
 }
