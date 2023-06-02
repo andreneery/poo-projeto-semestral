@@ -1,4 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page import="java.util.List" %>
+<%@ page import="model.Veiculo" %>
+
 <% 
     HttpSession currentSession = request.getSession(false);
     if (currentSession == null || currentSession.getAttribute("username") == null) {
@@ -55,4 +58,5 @@
     </script>
 </body>
 </html>
+
 <% } %>

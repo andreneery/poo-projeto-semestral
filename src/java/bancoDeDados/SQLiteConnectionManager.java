@@ -1,8 +1,6 @@
 package bancoDeDados;
 
 import java.sql.*;
-//import java.sql.DriverManager;
-//import java.sql.SQLException;
 
 public class SQLiteConnectionManager {
     public static final String CLASS_NAME = "org.sqlite.JDBC";

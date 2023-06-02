@@ -67,6 +67,7 @@ public class salvarVeiculo extends HttpServlet {
                 stmt.setInt(6, ano);
                 stmt.setDouble(7, preco);
                 stmt.executeUpdate();
+                System.out.println("Veículo cadastrado com sucesso!");
             } catch (SQLException e) {
                 e.printStackTrace();
                 response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
@@ -93,7 +94,7 @@ public class salvarVeiculo extends HttpServlet {
         response.setContentType("application/json");
         
 //        // Escrever o JSON na resposta
-//        response.getWriter().write(veiculoJson.toString());
+        response.getWriter().write(veiculoJson.toString());
 
         String sucessCreate = "Dados armazenado com sucesso.";
         String encodedMessage = java.net.URLEncoder.encode(sucessCreate, "UTF-8");
