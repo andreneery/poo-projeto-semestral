@@ -50,7 +50,7 @@
     <script>
         // Verifica se há uma mensagem de sucess na URL
         var urlParams = new URLSearchParams(window.location.search);
-        var sucess = urlParams.get('sucess');
+        var sucess = urlParams.get('success');
         if (sucess) {
             // Exibe um pop-up com a mensagem de erro
             alert(decodeURIComponent(sucess));

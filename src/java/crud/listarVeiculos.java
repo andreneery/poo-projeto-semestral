@@ -1,20 +1,19 @@
 package crud;
 
 import bancoDeDados.SQLiteConnectionManager;
-import model.Veiculo;
 
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 @WebServlet(name = "listarVeiculos", urlPatterns = {"/listarVeiculos"})
 public class listarVeiculos extends HttpServlet {
@@ -26,7 +25,7 @@ public class listarVeiculos extends HttpServlet {
             String sql = "SELECT * FROM veiculo";
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
                 try (ResultSet rs = stmt.executeQuery()) {
-                    List<Veiculo> veiculos = new ArrayList<>();
+                    JSONArray veiculosJson = new JSONArray();
                     while (rs.next()) {
                         String modelo = rs.getString("modelo");
                         String marca = rs.getString("marca");
@@ -36,11 +35,19 @@ public class listarVeiculos extends HttpServlet {
                         int ano = rs.getInt("ano");
                         double preco = rs.getDouble("preco");
 
-                        Veiculo veiculo = new Veiculo(modelo, marca, cor, placa, renavam, ano, preco);
-                        veiculos.add(veiculo);
+                        JSONObject veiculoJson = new JSONObject();
+                        veiculoJson.put("modelo", modelo);
+                        veiculoJson.put("marca", marca);
+                        veiculoJson.put("cor", cor);
+                        veiculoJson.put("placa", placa);
+                        veiculoJson.put("renavam", renavam);
+                        veiculoJson.put("ano", ano);
+                        veiculoJson.put("preco", preco);
+
+                        veiculosJson.put(veiculoJson);
                     }
 
-                    request.setAttribute("veiculos", veiculos);
+                    request.setAttribute("veiculos", veiculosJson.toString());
                     request.getRequestDispatcher("listarCadastro").forward(request, response);
                 }
             } catch (SQLException e) {

@@ -1,6 +1,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="java.util.List" %>
 <%@ page import="model.Veiculo" %>
+<%@ page import="org.json.JSONObject" %>
+<%@ page import="org.json.JSONArray" %>
+
 <% 
     HttpSession currentSession = request.getSession(false);
     if (currentSession == null || currentSession.getAttribute("username") == null) {
@@ -36,27 +39,25 @@
         </thead>
         <tbody>
             <% 
-            List<Veiculo> veiculos = (List<Veiculo>) request.getAttribute("veiculos");
-            if (veiculos != null && !veiculos.isEmpty()) {
-                for (Veiculo veiculo : veiculos) {
+            JSONObject veiculo = (JSONObject) request.getSession().getAttribute("veiculo");
+            if (veiculo != null) {
             %>
             <tr>
-                <td><%= veiculo.getModelo() %></td>
-                <td><%= veiculo.getMarca() %></td>
-                <td><%= veiculo.getCor() %></td>
-                <td><%= veiculo.getPlaca() %></td>
-                <td><%= veiculo.getRenavam() %></td>
-                <td><%= veiculo.getAno() %></td>
-                <td><%= veiculo.getPreco() %></td>
+                <td><%= veiculo.getString("modelo") %></td>
+                <td><%= veiculo.getString("marca") %></td>
+                <td><%= veiculo.getString("cor") %></td>
+                <td><%= veiculo.getString("placa") %></td>
+                <td><%= veiculo.getString("renavam") %></td>
+                <td><%= veiculo.getInt("ano") %></td>
+                <td><%= veiculo.getDouble("preco") %></td>
                 <td>
                     <form action="excluirVeiculo" method="post">
-                        <input type="hidden" name="placa" value="<%= veiculo.getPlaca() %>">
+                        <input type="hidden" name="placa" value="<%= veiculo.getString("placa") %>">
                         <button type="submit">Excluir</button>
                     </form>
                 </td>
             </tr>
             <% 
-                }
             } else {
             %>
             <tr>

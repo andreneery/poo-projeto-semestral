@@ -9,7 +9,6 @@ public class Veiculo {
     private int ano;
     private double preco;
 
-    // Construtor
     public Veiculo(String modelo, String marca, String cor, String placa, String renavam, int ano, double preco) {
         this.modelo = modelo;
         this.marca = marca;
@@ -20,7 +19,7 @@ public class Veiculo {
         this.preco = preco;
     }
 
-    // Métodos getters e setters
+    // Getters e Setters
 
     public String getModelo() {
         return modelo;
@@ -74,7 +73,7 @@ public class Veiculo {
         return preco;
     }
 
-    public void setPreco(Double preco) {
+    public void setPreco(double preco) {
         this.preco = preco;
     }
 }

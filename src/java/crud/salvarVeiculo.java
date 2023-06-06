@@ -67,6 +67,7 @@ public class salvarVeiculo extends HttpServlet {
                 stmt.setInt(6, ano);
                 stmt.setDouble(7, preco);
                 stmt.executeUpdate();
+                
                 System.out.println("Veículo cadastrado com sucesso!");
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -78,7 +79,6 @@ public class salvarVeiculo extends HttpServlet {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             return;
         }
-
         
         // Criar um objeto JSON com os dados do veículo
         JSONObject veiculoJson = new JSONObject();
@@ -90,14 +90,11 @@ public class salvarVeiculo extends HttpServlet {
         veiculoJson.put("ano", ano);
         veiculoJson.put("preco", preco);
         
-        // Definir o tipo de conteúdo da resposta como JSON
-        response.setContentType("application/json");
+        // Armazenar o objeto JSON na variável de sessão
+        request.getSession().setAttribute("veiculo", veiculoJson);
         
-//        // Escrever o JSON na resposta
-        response.getWriter().write(veiculoJson.toString());
-
         String sucessCreate = "Dados armazenado com sucesso.";
         String encodedMessage = java.net.URLEncoder.encode(sucessCreate, "UTF-8");
-        response.sendRedirect(request.getContextPath() + "/cadastroVeiculo.jsp?sucess=" + encodedMessage);
+        response.sendRedirect(request.getContextPath() + "/cadastroVeiculo.jsp?success=" + encodedMessage);
     }
 }
