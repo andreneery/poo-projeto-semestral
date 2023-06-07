@@ -57,6 +57,7 @@ public class listarVeiculos extends HttpServlet {
         } catch (SQLException e) {
             e.printStackTrace();
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-        }
+        }      
+
     }
 }

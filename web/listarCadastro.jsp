@@ -51,7 +51,7 @@
                 <td><%= veiculo.getInt("ano") %></td>
                 <td><%= veiculo.getDouble("preco") %></td>
                 <td>
-                    <form action="excluirVeiculo" method="post">
+                    <form action="excluirVeiculo?<%veiculo.getString("placa");%> method="post">
                         <input type="hidden" name="placa" value="<%= veiculo.getString("placa") %>">
                         <button type="submit">Excluir</button>
                     </form>
@@ -68,6 +68,15 @@
             %>
         </tbody>
     </table>
+         <script>
+        //Verifica se há uma mensagem na URL
+        var urlParams = new URLSearchParams(window.location.search);
+        var mesage = urlParams.get('mensagem');
+        if (mesage) {
+            // Exibe um pop-up com a mensagem de erro
+            alert(decodeURIComponent(mesage));
+        }
+    </script>
 </body>
 </html>
 <% } %>
