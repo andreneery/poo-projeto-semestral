@@ -46,7 +46,7 @@ public class listarVeiculos extends HttpServlet {
 
                         veiculosJson.put(veiculoJson);
                     }
-
+                    
                     request.setAttribute("veiculos", veiculosJson.toString());
                     request.getRequestDispatcher("listarCadastro").forward(request, response);
                 }

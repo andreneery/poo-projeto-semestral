@@ -1,10 +1,9 @@
 package crud;
 
-import bancoDeDados.SQLiteConnectionManager;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -15,10 +14,12 @@ import org.json.JSONObject;
 @WebServlet(name = "salvarVeiculo", urlPatterns = {"/salvarVeiculo"})
 public class salvarVeiculo extends HttpServlet {
     
+    private List<JSONObject> listaVeiculos; // Lista para armazenar os veículos cadastrados
+    
     @Override
     public void init() throws ServletException {
         super.init();
-        SQLiteConnectionManager.createTable();
+        listaVeiculos = new ArrayList<>();
     }
     
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -55,31 +56,6 @@ public class salvarVeiculo extends HttpServlet {
             return;
         }
 
-        // lógica para salvar os dados do veículo no banco de dados
-        try (Connection conn = SQLiteConnectionManager.getConnection()) {
-            String sql = "INSERT INTO veiculo (modelo, marca, cor, placa, renavam, ano, preco) VALUES (?, ?, ?, ?, ?, ?, ?)";
-            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-                stmt.setString(1, modelo);
-                stmt.setString(2, marca);
-                stmt.setString(3, cor);
-                stmt.setString(4, placa);
-                stmt.setString(5, renavam);
-                stmt.setInt(6, ano);
-                stmt.setDouble(7, preco);
-                stmt.executeUpdate();
-                
-                System.out.println("Veículo cadastrado com sucesso!");
-            } catch (SQLException e) {
-                e.printStackTrace();
-                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                return;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            return;
-        }
-        
         // Criar um objeto JSON com os dados do veículo
         JSONObject veiculoJson = new JSONObject();
         veiculoJson.put("modelo", modelo);
@@ -90,10 +66,13 @@ public class salvarVeiculo extends HttpServlet {
         veiculoJson.put("ano", ano);
         veiculoJson.put("preco", preco);
         
-        // Armazenar o objeto JSON na variável de sessão
-        request.getSession().setAttribute("veiculo", veiculoJson);
+        // Adicionar o objeto JSON à lista de veículos
+        listaVeiculos.add(veiculoJson);
         
-        String sucessCreate = "Dados armazenado com sucesso.";
+        // Armazenar a lista de veículos no atributo de solicitação
+        request.setAttribute("veiculos", listaVeiculos);
+        
+        String sucessCreate = "Dados armazenados com sucesso.";
         String encodedMessage = java.net.URLEncoder.encode(sucessCreate, "UTF-8");
         response.sendRedirect(request.getContextPath() + "/cadastroVeiculo.jsp?success=" + encodedMessage);
     }
