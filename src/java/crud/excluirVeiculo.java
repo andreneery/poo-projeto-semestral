@@ -11,6 +11,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @WebServlet(name = "excluirVeiculo", urlPatterns = {"/excluirVeiculo"})
 public class excluirVeiculo extends HttpServlet {
@@ -43,6 +45,8 @@ public class excluirVeiculo extends HttpServlet {
             } catch (SQLException e) {
                 e.printStackTrace();
                 response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            } catch (Exception ex) {
+                Logger.getLogger(excluirVeiculo.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }

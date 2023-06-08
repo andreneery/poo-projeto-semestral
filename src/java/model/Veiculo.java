@@ -9,6 +9,24 @@ public class Veiculo {
     private int ano;
     private double preco;
 
+    
+    public static String getCreateStatement() {
+        return "CREATE TABLE IF NOT EXISTS veiculo ("
+                + "    modelo VARCHAR(50) NOT NULL,"
+                + "    marca VARCHAR(50) NOT NULL,"
+                + "    cor VARCHAR(50) NOT NULL,"
+                + "    placa VARCHAR(50) NOT NULL,"
+                + "    renavam VARCHAR(50) NOT NULL,"
+                + "    ano INT NOT NULL,"
+                + "    preco DOUBLE NOT NULL"
+                + ");";
+
+    }
+    
+    public static void insertVeicle(){
+        
+    }
+    
     public Veiculo(String modelo, String marca, String cor, String placa, String renavam, int ano, double preco) {
         this.modelo = modelo;
         this.marca = marca;
