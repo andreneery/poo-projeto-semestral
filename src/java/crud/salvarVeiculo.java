@@ -95,7 +95,7 @@ public class salvarVeiculo extends HttpServlet {
         }
 
         // Redirecionar para a página de cadastro com uma mensagem de sucesso
-        String redirectUrl = "cadastroVeiculo.jsp?success";
+        String redirectUrl = "cadastroVeiculo.jsp?success=true";
         response.sendRedirect(redirectUrl);
     }
 }
