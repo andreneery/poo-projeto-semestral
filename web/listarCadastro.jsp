@@ -42,6 +42,7 @@
                 <th>Renavam</th>
                 <th>Ano</th>
                 <th>Preço</th>
+                <th>Ações</th>
             </tr>
         </thead>
         <tbody>
@@ -54,6 +55,11 @@
                     <td><%= veiculo.getRenavam() %></td>
                     <td><%= veiculo.getAno() %></td>
                     <td><%= veiculo.getPreco() %></td>
+                    <td>
+                        <form action="excluirVeiculo?<%= veiculo.getPlaca() %>" method="post">
+                            <button type="submit">Deletar</button>
+                        </form>
+                    </td>
                 </tr>
             <% } %>
         </tbody>

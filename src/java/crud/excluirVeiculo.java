@@ -22,32 +22,7 @@ public class excluirVeiculo extends HttpServlet {
         
         String placaCarro = request.getParameter("placa");
         
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            try (Connection conn = SQLiteConnectionManager.getConnection()) {
-                String sql = "DELETE FROM veiculo WHERE placa = ?";
-                try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-                    stmt.setString(1, placaCarro);
-                    int rowsDeleted = stmt.executeUpdate();
-                    // Verificar se a tabela foi excluída com sucesso
-                    if (rowsDeleted > 0) {
-                        String mensagem = "Dados excluídos com sucesso";
-                        String encodedMessage = java.net.URLEncoder.encode(mensagem, "UTF-8");
-                        response.sendRedirect(request.getContextPath() + "/listarCadastro.jsp?mensagem=" + encodedMessage);
-                    } else {
-                        String mensagem = "A tabela não foi encontrada";
-                        String encodedMessage = java.net.URLEncoder.encode(mensagem, "UTF-8");
-                        response.sendRedirect(request.getContextPath() + "/listarCadastro.jsp?mensagem=" + encodedMessage);
-                    }
-                } catch (SQLException e) {
-                    out.println("Ocorreu um erro ao excluir a tabela: " + e.getMessage());
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            } catch (Exception ex) {
-                Logger.getLogger(excluirVeiculo.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+        System.out.println(placaCarro);
+        
     }
 }
