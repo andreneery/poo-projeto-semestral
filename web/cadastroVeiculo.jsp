@@ -1,6 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="java.util.List" %>
-<%@ page import="model.Veiculo" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="org.json.JSONObject" %>
 
 <% 
     HttpSession currentSession = request.getSession(false);
@@ -22,7 +23,7 @@
     <jsp:include page="navbar.jsp" />
     <!-- fim menu -->
     <h1>Cadastro de Veículo</h1>
-    <form action="salvarVeiculo" method="post">
+    <form onsubmit="addVeiculo(event)">
         <label for="modelo">Modelo:</label>
         <input type="text" id="modelo" name="modelo" required><br><br>
         
@@ -48,12 +49,74 @@
     </form>
     
     <script>
-        // Verifica se há uma mensagem de sucess na URL
+        // Função para obter o histórico de veículos
+        function getHistorico() {
+            const historicoStr = sessionStorage.getItem("historicoVeiculos");
+            if (historicoStr) {
+                return JSON.parse(historicoStr);
+            } else {
+                return [];
+            }
+        }
+
+        // Função para salvar o histórico de veículos
+        function saveHistorico(historico) {
+            const historicoStr = JSON.stringify(historico);
+            sessionStorage.setItem("historicoVeiculos", historicoStr);
+        }
+
+        // Função para adicionar o veículo
+        function addVeiculo(event) {
+            event.preventDefault();
+            
+            const modelo = document.getElementById('modelo').value;
+            const marca = document.getElementById('marca').value;
+            const cor = document.getElementById('cor').value;
+            const placa = document.getElementById('placa').value;
+            const renavam = document.getElementById('renavam').value;
+            const ano = document.getElementById('ano').value;
+            const preco = document.getElementById('preco').value;
+            
+            // Verifica se todos os campos estão preenchidos
+            if (!modelo || !marca || !cor || !placa || !renavam || !ano || !preco) {
+                alert("Por favor, preencha todos os campos");
+                return;
+            }
+            
+            const veiculo = {
+                modelo: modelo,
+                marca: marca,
+                cor: cor,
+                placa: placa,
+                renavam: renavam,
+                ano: ano,
+                preco: preco
+            };
+            
+            // Envia o veículo para o histórico
+            const historico = getHistorico();
+            historico.push(veiculo);
+            saveHistorico(historico);
+            
+            // Limpa os campos do formulário
+            document.getElementById('modelo').value = '';
+            document.getElementById('marca').value = '';
+            document.getElementById('cor').value = '';
+            document.getElementById('placa').value = '';
+            document.getElementById('renavam').value = '';
+            document.getElementById('ano').value = '';
+            document.getElementById('preco').value = '';
+            
+            // Exibe uma mensagem de sucesso
+            alert("Veículo cadastrado com sucesso!");
+        }
+        
+        // Verifica se há uma mensagem de sucesso na URL
         var urlParams = new URLSearchParams(window.location.search);
-        var sucess = urlParams.get('success');
-        if (sucess) {
-            // Exibe um pop-up com a mensagem de erro
-            alert(decodeURIComponent(sucess));
+        var success = urlParams.get('success');
+        if (success) {
+            // Exibe um pop-up com a mensagem de sucesso
+            alert(decodeURIComponent(success));
         }
     </script>
 </body>

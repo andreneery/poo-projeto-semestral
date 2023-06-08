@@ -1,6 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.List" %>
-<%@ page import="model.Veiculo" %>
 <%@ page import="org.json.JSONObject" %>
 <%@ page import="org.json.JSONArray" %>
 
@@ -23,60 +23,68 @@
     <!-- menu -->
     <jsp:include page="navbar.jsp" />
     <!-- fim menu -->
-    <h1>Listagem de Veículos</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Modelo</th>
-                <th>Marca</th>
-                <th>Cor</th>
-                <th>Placa</th>
-                <th>Renavam</th>
-                <th>Ano</th>
-                <th>Preço</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% 
-            JSONObject veiculo = (JSONObject) request.getSession().getAttribute("veiculo");
-            if (veiculo != null) {
-            %>
-            <tr>
-                <td><%= veiculo.getString("modelo") %></td>
-                <td><%= veiculo.getString("marca") %></td>
-                <td><%= veiculo.getString("cor") %></td>
-                <td><%= veiculo.getString("placa") %></td>
-                <td><%= veiculo.getString("renavam") %></td>
-                <td><%= veiculo.getInt("ano") %></td>
-                <td><%= veiculo.getDouble("preco") %></td>
-                <td>
-                    <form action="excluirVeiculo?<%veiculo.getString("placa");%> method="post">
-                        <input type="hidden" name="placa" value="<%= veiculo.getString("placa") %>">
-                        <button type="submit">Excluir</button>
-                    </form>
-                </td>
-            </tr>
-            <% 
-            } else {
-            %>
-            <tr>
-                <td colspan="8">Nenhum veículo cadastrado.</td>
-            </tr>
-            <% 
-            }
-            %>
-        </tbody>
-    </table>
-         <script>
-        //Verifica se há uma mensagem na URL
-        var urlParams = new URLSearchParams(window.location.search);
-        var mesage = urlParams.get('mensagem');
-        if (mesage) {
-            // Exibe um pop-up com a mensagem de erro
-            alert(decodeURIComponent(mesage));
-        }
-    </script>
+    <h1>Histórico de Veículos</h1>
+        <table id="historicoTable">
+            <thead>
+                <tr>
+                    <th>Modelo</th>
+                    <th>Marca</th>
+                    <th>Cor</th>
+                    <th>Placa</th>
+                    <th>Renavam</th>
+                    <th>Ano</th>
+                    <th>Preço</th>
+                </tr>
+            </thead>
+            <tbody>
+                <script>
+                    // Função para obter o histórico de veículos da sessionStorage
+                    function getHistorico() {
+                        const historicoStr = sessionStorage.getItem("historicoVeiculos");
+                        if (historicoStr) {
+                            return JSON.parse(historicoStr);
+                        } else {
+                            return [];
+                        }
+                    }
+
+                    // Função para preencher a tabela com os dados do histórico de veículos
+                    function preencherTabela() {
+                        const historico = getHistorico();
+                        const tabela = document.getElementById("historicoTable");
+
+                        for (const veiculo of historico) {
+                            const row = tabela.insertRow();
+
+                            const modeloCell = row.insertCell();
+                            modeloCell.textContent = veiculo.modelo;
+
+                            const marcaCell = row.insertCell();
+                            marcaCell.textContent = veiculo.marca;
+
+                            const corCell = row.insertCell();
+                            corCell.textContent = veiculo.cor;
+
+                            const placaCell = row.insertCell();
+                            placaCell.textContent = veiculo.placa;
+
+                            const renavamCell = row.insertCell();
+                            renavamCell.textContent = veiculo.renavam;
+
+                            const anoCell = row.insertCell();
+                            anoCell.textContent = veiculo.ano;
+
+                            const precoCell = row.insertCell();
+                            precoCell.textContent = veiculo.preco;
+                        }
+                    }
+
+                    // Chame a função para preencher a tabela quando a página for carregada
+                    window.addEventListener("DOMContentLoaded", preencherTabela);
+                </script>
+            </tbody>
+        </table>
+        
 </body>
 </html>
 <% } %>
