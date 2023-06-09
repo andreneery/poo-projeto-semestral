@@ -41,7 +41,7 @@ public class cadastroUsuario extends HttpServlet {
 //            resp.sendRedirect("erro.jsp"); // Redireciona para uma página de erro
         }
         
-        // Criar um objeto Veiculo com os dados informados
+        // Criar um objeto usuario com os dados informados
         Usuarios usuarios = new Usuarios(nome, email, username, senha);
         usuarios.setNomeCompleto(nome);
         usuarios.setEmail(email);
@@ -55,9 +55,8 @@ public class cadastroUsuario extends HttpServlet {
             Logger.getLogger(cadastroUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-//        // Redirecionar para a página de cadastro com uma mensagem de sucesso
-//        String redirectUrl = "cadastroUsuario.jsp?success=true";
-//        resp.sendRedirect(redirectUrl);
-//    }
+        // Redirecionar para a página de cadastro com uma mensagem de sucesso
+        String redirectUrl = "cadastroUsuario.jsp?success=true";
+        resp.sendRedirect(redirectUrl);
     }
 }
