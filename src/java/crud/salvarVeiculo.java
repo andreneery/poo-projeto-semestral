@@ -1,19 +1,16 @@
 package crud;
 
-import bancoDeDados.SQLiteConnectionManager;
 import bancoDeDados.VeiculoDAO;
-import java.sql.Connection;
-import java.sql.Statement;
-
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import model.Veiculo;
 
 @WebServlet(name = "salvarVeiculo", urlPatterns = {"/salvarVeiculo"})
@@ -39,18 +36,6 @@ public class salvarVeiculo extends HttpServlet {
         String renavam = request.getParameter("renavam");
         String anoString = request.getParameter("ano");
         String precoString = request.getParameter("preco");
-
-        try {
-            Connection c = (Connection) SQLiteConnectionManager.getConnection();
-            Statement s = c.createStatement();
-            s.execute(Veiculo.getCreateStatement());
-
-            VeiculoDAO vDAO = new VeiculoDAO();
-            vDAO.salvarVeiculo(new Veiculo(modelo, marca, cor, placa, renavam, 0, 0));
-
-        } catch (Exception e) {
-
-        }
 
         System.out.println(String.format("-->%s\n-->%s\n-->%s\n-->%s\n-->%s", modelo, marca, cor, placa, renavam));
 
@@ -79,17 +64,15 @@ public class salvarVeiculo extends HttpServlet {
 
         // Criar um objeto Veiculo com os dados informados
         Veiculo veiculo = new Veiculo(modelo, marca, cor, placa, renavam, ano, preco);
-        veiculo.setModelo(modelo);
-        veiculo.setMarca(marca);
-        veiculo.setCor(cor);
-        veiculo.setPlaca(placa);
-        veiculo.setRenavam(renavam);
-        veiculo.setAno(ano);
-        veiculo.setPreco(preco);
 
         try {
             // Salvar o veículo no banco de dados
             veiculoDAO.salvarVeiculo(veiculo);
+        } catch (SQLException ex) {
+            Logger.getLogger(salvarVeiculo.class.getName()).log(Level.SEVERE, null, ex);
+            // Retornar um erro para o cliente
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            return;
         } catch (Exception ex) {
             Logger.getLogger(salvarVeiculo.class.getName()).log(Level.SEVERE, null, ex);
         }
