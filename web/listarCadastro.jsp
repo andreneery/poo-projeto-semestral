@@ -60,6 +60,11 @@
                             <button type="submit">Deletar</button>
                         </form>
                     </td>
+                    <td>
+                        <form action="atualizarVeiculo?placa=<%= veiculo.getPlaca() %>" method="post">
+                            <button type="submit">Editar</button>
+                        </form>
+                    </td>
                 </tr>
             <% } %>
         </tbody>

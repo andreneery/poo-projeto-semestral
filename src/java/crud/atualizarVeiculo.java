@@ -8,25 +8,21 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author Thalita
- */
 @WebServlet(name = "atualizarVeiculo", urlPatterns = {"/atualizarVeiculo"})
 public class atualizarVeiculo extends HttpServlet {
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        String placaCarro = request.getParameter("placa");
+        
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet atualizarVeiculo</title>");            
-            out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet atualizarVeiculo at " + request.getContextPath() + "</h1>");
+            out.println("<h1>" + placaCarro + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
