@@ -9,7 +9,7 @@
 
 <%
    VeiculoDAO veiculoDAO = new VeiculoDAO();
-   List<Veiculo> veiculos = veiculoDAO.listarVeiculos();
+   List<Veiculo> veiculos = veiculoDAO.listarVeiculoSelecionado(placaCarro);
         if (veiculos != null) {
             request.setAttribute("veiculos", veiculos);
 }
