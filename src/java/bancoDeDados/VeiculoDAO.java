@@ -11,6 +11,7 @@ import model.Veiculo;
 public class VeiculoDAO {
     private static final String INSERT_VEICULO_SQL = "INSERT INTO veiculo (modelo, marca, cor, placa, renavam, ano, preco) VALUES (?, ?, ?, ?, ?, ?, ?)";
     private static final String SELECT_ALL_VEICULOS_SQL = "SELECT * FROM veiculo";
+    private static final String DELETE_VEICULO_SQL = "DELETE FROM veiculo WHERE placa = ?";
 
     public void salvarVeiculo(Veiculo veiculo) throws Exception {
         try (Connection connection = SQLiteConnectionManager.getConnection();
@@ -55,4 +56,17 @@ public class VeiculoDAO {
 
         return veiculos;
     }
+    
+    public void delete(String placa) throws Exception {
+        try (Connection connection = SQLiteConnectionManager.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_VEICULO_SQL)) {
+
+            preparedStatement.setString(1, placa);
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
 }

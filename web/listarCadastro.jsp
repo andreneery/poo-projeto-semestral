@@ -56,7 +56,7 @@
                     <td><%= veiculo.getAno() %></td>
                     <td><%= veiculo.getPreco() %></td>
                     <td>
-                        <form action="excluirVeiculo?<%= veiculo.getPlaca() %>" method="post">
+                        <form action="excluirVeiculo?placa=<%= veiculo.getPlaca() %>" method="post">
                             <button type="submit">Deletar</button>
                         </form>
                     </td>

@@ -1,6 +1,7 @@
 package crud;
 
 import bancoDeDados.SQLiteConnectionManager;
+import bancoDeDados.VeiculoDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -16,13 +17,24 @@ import java.util.logging.Logger;
 
 @WebServlet(name = "excluirVeiculo", urlPatterns = {"/excluirVeiculo"})
 public class excluirVeiculo extends HttpServlet {
+    
+    private VeiculoDAO veiculoDAO; 
+    
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        veiculoDAO = new VeiculoDAO();
+    }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        String placaCarro = request.getParameter("placa");
-        
-        System.out.println(placaCarro);
+        try {
+            String placaCarro = request.getParameter("placa");
+            veiculoDAO.delete(placaCarro);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         
     }
 }
