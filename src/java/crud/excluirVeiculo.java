@@ -36,5 +36,9 @@ public class excluirVeiculo extends HttpServlet {
             e.printStackTrace();
         }
         
+        // Redirecionar para a página de listagem com uma mensagem de sucesso
+        String redirectUrl = "listarCadastro.jsp?success=true";
+        response.sendRedirect(redirectUrl);
+        
     }
 }
