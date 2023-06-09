@@ -17,6 +17,10 @@
         <input type="submit" value="Entrar">
     </form>
     
+    <button type="button">
+        <a href="cadastroUsuario.jsp">Cadastrar Consultor</a>
+    </button>
+    
     <script>
         // Verifica se há uma mensagem de erro na URL
         var urlParams = new URLSearchParams(window.location.search);
