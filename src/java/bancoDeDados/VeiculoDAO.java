@@ -71,18 +71,15 @@ public class VeiculoDAO {
         }
     }
     
-    public void atualizarVeiculo(Veiculo veiculo) throws Exception {
+    public void atualizarVeiculo(String placa, String modelo) throws Exception {
         try (Connection connection = SQLiteConnectionManager.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_VEICULO_SQL)) {
-            preparedStatement.setString(1, veiculo.getModelo());
-            /*preparedStatement.setString(2, veiculo.getMarca());
-            preparedStatement.setString(3, veiculo.getCor());
-            preparedStatement.setString(4, veiculo.getPlaca());
-            preparedStatement.setString(5, veiculo.getRenavam());
-            preparedStatement.setInt(6, veiculo.getAno());
-            preparedStatement.setDouble(7, veiculo.getPreco());;*/
+             
+            preparedStatement.setString(1, placa);
+            preparedStatement.setString(2, modelo);
 
             preparedStatement.executeUpdate();
+            
 
             System.out.println("Veículo atualizado no banco de dados com sucesso!");
         } catch (SQLException e) {

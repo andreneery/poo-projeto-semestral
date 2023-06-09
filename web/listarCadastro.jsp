@@ -71,13 +71,18 @@
     </table>
         
         <script>
-      // Verifica se há uma mensagem na URL
-      var urlParams = new URLSearchParams(window.location.search);
-      var success = urlParams.get('success');
-      if (success === 'true') {
-        // Exibe um pop-up com a mensagem de sucesso
-        alert("Deletado com sucesso");
-      }
+        // Verifica se há uma mensagem na URL
+        var urlParams = new URLSearchParams(window.location.search);
+        var success = urlParams.get('success');
+        if (success === 'true') {
+          // Exibe um pop-up com a mensagem de sucesso
+          alert("Deletado com sucesso");
+        }
+        var mesage = urlParams.get('mesage');
+        if (mesage === 'true') {
+          // Exibe um pop-up com a mensagem de sucesso
+          alert("Atualizado com sucesso");
+        }
     </script>
     
 </body>

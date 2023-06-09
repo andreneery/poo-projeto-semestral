@@ -24,16 +24,22 @@ public class atualizarVeiculo extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String placaCarro = request.getParameter("placa");
+        String modelo = request.getParameter("modelo");
+        String placa = request.getParameter("placa");
         
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<body>");
-            out.println("<h1>" + placaCarro + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        try {
+            //String placaCarro = request.getParameter("placa");
+            veiculoDAO.atualizarVeiculo(placa, modelo);
+        
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        
+        // Redirecionar para a página de listagem com uma mensagem de sucesso
+        String redirectUrl = "listarCadastro.jsp?mesage=true";
+        response.sendRedirect(redirectUrl);
+        
     }
+    
+    
 }
