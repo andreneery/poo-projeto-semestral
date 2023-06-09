@@ -13,7 +13,7 @@ public class VeiculoDAO {
     private static final String SELECT_ALL_VEICULOS_SQL = "SELECT * FROM veiculo";
     private static final String SELECT_VEICULO_SQL = "SELECT * FROM veiculo WHERE placa = ?";
     private static final String DELETE_VEICULO_SQL = "DELETE FROM veiculo WHERE placa = ?";
-    private static final String UPDATE_VEICULO_SQL = "UPDATE veiculo SET modelo = ? WHERE placa = ?";
+    private static final String UPDATE_VEICULO_SQL = "UPDATE veiculo SET modelo = ?, placa = ? WHERE placa = ?";
 
     public void salvarVeiculo(Veiculo veiculo) throws Exception {
         try (Connection connection = SQLiteConnectionManager.getConnection();
@@ -80,8 +80,6 @@ public class VeiculoDAO {
 
             preparedStatement.executeUpdate();
             
-
-            System.out.println("Veículo atualizado no banco de dados com sucesso!");
         } catch (SQLException e) {
             e.printStackTrace();
         }
