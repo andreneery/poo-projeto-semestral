@@ -42,6 +42,7 @@
                 <th>Renavam</th>
                 <th>Ano</th>
                 <th>Preço</th>
+                <th>Ações</th>
             </tr>
         </thead>
         <tbody>
@@ -54,10 +55,28 @@
                     <td><%= veiculo.getRenavam() %></td>
                     <td><%= veiculo.getAno() %></td>
                     <td><%= veiculo.getPreco() %></td>
+                    <td>
+                        <form action="excluirVeiculo?placa=<%= veiculo.getPlaca() %>" method="post">
+                            <button type="submit">Deletar</button>
+                        </form>
+                    </td>
                 </tr>
             <% } %>
         </tbody>
     </table>
+        
+        <script>
+      // Verifica se há uma mensagem na URL
+      var urlParams = new URLSearchParams(window.location.search);
+      var success = urlParams.get('success');
+      if (success === 'true') {
+        // Exibe um pop-up com a mensagem de sucesso
+        alert("Deletado com sucesso");
+        // Redireciona para a página de cadastro
+        window.location.href = "listarCadastro.jsp";
+      }
+    </script>
+    
 </body>
 </html>
 <% } %>
