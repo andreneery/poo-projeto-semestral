@@ -12,6 +12,7 @@ public class VeiculoDAO {
     private static final String INSERT_VEICULO_SQL = "INSERT INTO veiculo (modelo, marca, cor, placa, renavam, ano, preco) VALUES (?, ?, ?, ?, ?, ?, ?)";
     private static final String SELECT_ALL_VEICULOS_SQL = "SELECT * FROM veiculo";
     private static final String DELETE_VEICULO_SQL = "DELETE FROM veiculo WHERE placa = ?";
+    private static final String UPDATE_VEICULO_SQL = "UPDATE veiculo SET modelo = ? WHERE placa = ?";
 
     public void salvarVeiculo(Veiculo veiculo) throws Exception {
         try (Connection connection = SQLiteConnectionManager.getConnection();
@@ -64,6 +65,25 @@ public class VeiculoDAO {
             preparedStatement.setString(1, placa);
             preparedStatement.executeUpdate();
 
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void atualizarVeiculo(Veiculo veiculo) throws Exception {
+        try (Connection connection = SQLiteConnectionManager.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_VEICULO_SQL)) {
+            preparedStatement.setString(1, veiculo.getModelo());
+            /*preparedStatement.setString(2, veiculo.getMarca());
+            preparedStatement.setString(3, veiculo.getCor());
+            preparedStatement.setString(4, veiculo.getPlaca());
+            preparedStatement.setString(5, veiculo.getRenavam());
+            preparedStatement.setInt(6, veiculo.getAno());
+            preparedStatement.setDouble(7, veiculo.getPreco());;*/
+
+            preparedStatement.executeUpdate();
+
+            System.out.println("Veículo salvo no banco de dados com sucesso!");
         } catch (SQLException e) {
             e.printStackTrace();
         }
