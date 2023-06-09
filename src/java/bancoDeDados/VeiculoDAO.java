@@ -13,11 +13,11 @@ public class VeiculoDAO {
     private static final String SELECT_ALL_VEICULOS_SQL = "SELECT * FROM veiculo";
     private static final String SELECT_VEICULO_SQL = "SELECT * FROM veiculo WHERE placa = ?";
     private static final String DELETE_VEICULO_SQL = "DELETE FROM veiculo WHERE placa = ?";
-    private static final String UPDATE_VEICULO_SQL = "UPDATE veiculo SET modelo = ?, placa = ? WHERE placa = ?";
+    private static final String UPDATE_VEICULO_SQL = "UPDATE veiculo SET modelo = ?, marca = ?, cor = ?, renavam = ?, ano = ?, preco = ? WHERE placa = ?";
 
     public void salvarVeiculo(Veiculo veiculo) throws Exception {
         try (Connection connection = SQLiteConnectionManager.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_VEICULO_SQL)) {
+            PreparedStatement preparedStatement = connection.prepareStatement(INSERT_VEICULO_SQL)) {
             preparedStatement.setString(1, veiculo.getModelo());
             preparedStatement.setString(2, veiculo.getMarca());
             preparedStatement.setString(3, veiculo.getCor());
@@ -71,20 +71,32 @@ public class VeiculoDAO {
         }
     }
     
-    public void atualizarVeiculo(String placa, String modelo) throws Exception {
+    public boolean atualizarVeiculo(Veiculo veiculo) throws Exception {
+        boolean atualizado = false;
         try (Connection connection = SQLiteConnectionManager.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_VEICULO_SQL)) {
-             
-            preparedStatement.setString(1, placa);
-            preparedStatement.setString(2, modelo);
+            preparedStatement.setString(1, veiculo.getModelo());
+            preparedStatement.setString(2, veiculo.getMarca());
+            preparedStatement.setString(3, veiculo.getCor());
+            preparedStatement.setString(4, veiculo.getRenavam());
+            preparedStatement.setInt(5, veiculo.getAno());
+            preparedStatement.setDouble(6, veiculo.getPreco());
+            preparedStatement.setString(7, veiculo.getPlaca());
 
-            preparedStatement.executeUpdate();
-            
+            int linhasAfetadas = preparedStatement.executeUpdate();
+            if (linhasAfetadas > 0) {
+                atualizado = true;
+                System.out.println("Veículo atualizado no banco de dados com sucesso!");
+            } else {
+                System.out.println("Não foi possível atualizar o veículo no banco de dados.");
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        
+        return atualizado;
     }
-    
+
     public List<Veiculo> listarVeiculoSelecionado(String placaCarro) throws Exception {
         List<Veiculo> veiculos = new ArrayList<>();
 
@@ -113,6 +125,4 @@ public class VeiculoDAO {
 
         return veiculos;
     }
-
-    
 }

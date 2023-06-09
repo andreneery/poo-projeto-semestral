@@ -4,14 +4,21 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="bancoDeDados.VeiculoDAO" %>
 
-<%String placaCarro = request.getParameter("placa");%>
-
 <%
-   VeiculoDAO veiculoDAO = new VeiculoDAO();
-   List<Veiculo> veiculos = veiculoDAO.listarVeiculoSelecionado(placaCarro);
-        if (veiculos != null) {
-            request.setAttribute("veiculos", veiculos);
-}
+    HttpSession currentSession = request.getSession(false);
+    if (currentSession == null || currentSession.getAttribute("username") == null) {
+        // Redireciona para a página de login caso a sessão não esteja ativa
+        response.sendRedirect(request.getContextPath() + "/login.jsp");
+    } else {
+        String username = (String) currentSession.getAttribute("username");
+
+        try {
+            VeiculoDAO veiculoDAO = new VeiculoDAO();
+            String placaCarro = request.getParameter("placa"); // Obtenha o valor da placa do parâmetro "placa" em vez de "placaCarro"
+            List<Veiculo> veiculos = veiculoDAO.listarVeiculoSelecionado(placaCarro);
+            if (veiculos != null) {
+                request.setAttribute("veiculos", veiculos);
+            }
 %>
 
 <!DOCTYPE html>
@@ -22,12 +29,12 @@
     </head>
     <body>
         <jsp:include page="navbar.jsp" />
-        
+
         <form action="./atualizarVeiculo?placa=<%= placaCarro %>" method="post">
             <% for (Veiculo veiculo : veiculos) { %>
             <label for="modelo">Modelo:</label>
             <input type="text" id="modelo" value="<%= veiculo.getModelo() %>" name="modelo" required><br><br>
-            
+
             <label for="marca">Marca:</label>
             <input type="text" id="marca" value="<%= veiculo.getMarca() %>" name="marca" required><br><br>
 
@@ -49,6 +56,14 @@
             <input type="submit" value="Atualizar">
             <% } %>
         </form>
-        
+
     </body>
 </html>
+
+<%
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.sendRedirect("erro.jsp");
+        }
+    }
+%>
