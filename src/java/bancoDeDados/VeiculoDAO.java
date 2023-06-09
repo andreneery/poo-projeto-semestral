@@ -83,7 +83,7 @@ public class VeiculoDAO {
 
             preparedStatement.executeUpdate();
 
-            System.out.println("Veículo salvo no banco de dados com sucesso!");
+            System.out.println("Veículo atualizado no banco de dados com sucesso!");
         } catch (SQLException e) {
             e.printStackTrace();
         }
