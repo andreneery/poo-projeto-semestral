@@ -32,4 +32,28 @@ public class UsuariosDAO {
             e.printStackTrace();
         }
     }
+    
+    public Usuarios obterUsuario(String username) throws Exception {
+        Usuarios usuario = null;
+        String query = "SELECT * FROM usuarios WHERE username = ?";
+
+        try (Connection connection = SQLiteConnectionManager.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, username);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    int id = resultSet.getInt("id");
+                    String nomeCompleto = resultSet.getString("nomeCompleto");
+                    String email = resultSet.getString("email");
+                    String senha = resultSet.getString("senha");
+
+                    usuario = new Usuarios(nomeCompleto, email, username, senha);
+                    usuario.setId(id);
+                }
+            }
+        }
+
+        return usuario;
+    }
 }

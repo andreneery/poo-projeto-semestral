@@ -23,5 +23,16 @@
         <input type="submit" value="Cadastrar">
     </form>
     <a href="index.jsp">Voltar</a>
+    <script>
+      // Verifica se há uma mensagem na URL
+      var urlParams = new URLSearchParams(window.location.search);
+      var success = urlParams.get('success');
+      if (success === 'true') {
+        // Exibe um pop-up com a mensagem de sucesso
+        alert("Seu cadastro foi realizado com sucesso.");
+        // Redireciona para a página de cadastro
+        window.location.href = "index.jsp";
+      }
+    </script>
 </body>
 </html>
