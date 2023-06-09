@@ -1,5 +1,6 @@
 package bancoDeDados;
 
+import jakarta.servlet.ServletException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,6 +16,7 @@ public class VeiculoDAO {
     private static final String DELETE_VEICULO_SQL = "DELETE FROM veiculo WHERE placa = ?";
     private static final String UPDATE_VEICULO_SQL = "UPDATE veiculo SET modelo = ?, marca = ?, cor = ?, renavam = ?, ano = ?, preco = ? WHERE placa = ?";
 
+    
     public void salvarVeiculo(Veiculo veiculo) throws Exception {
         try (Connection connection = SQLiteConnectionManager.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_VEICULO_SQL)) {
@@ -124,5 +126,18 @@ public class VeiculoDAO {
         }
 
         return veiculos;
+    }
+    
+    public boolean existePlaca(String placa) throws SQLException, Exception {
+        try (Connection connection = SQLiteConnectionManager.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_VEICULO_SQL)) {
+
+            preparedStatement.setString(1, placa);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                // Se houver algum resultado, a placa já existe
+                return resultSet.next();
+            }
+        }
     }
 }

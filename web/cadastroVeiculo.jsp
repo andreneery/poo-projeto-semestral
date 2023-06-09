@@ -22,8 +22,7 @@
     <jsp:include page="navbar.jsp" />
     <!-- fim menu -->
     <h1>Cadastro de Veículo</h1>
-<!--    onsubmit="addVeiculo(event)"-->
-<form action="./salvarVeiculo" method="post">
+    <form action="./salvarVeiculo" method="post">
         <label for="modelo">Modelo:</label>
         <input type="text" id="modelo" name="modelo" required><br><br>
         
@@ -48,17 +47,28 @@
         <input type="submit" value="Cadastrar">
     </form>
     <script>
-      // Verifica se há uma mensagem na URL
-      var urlParams = new URLSearchParams(window.location.search);
-      var success = urlParams.get('success');
-      if (success === 'true') {
-        // Exibe um pop-up com a mensagem de sucesso
-        alert("Seu cadastro foi realizado com sucesso.");
-        // Redireciona para a página de cadastro
-        window.location.href = "cadastroVeiculo.jsp";
-      }
+        // Verifica se há uma mensagem na URL
+        var urlParams = new URLSearchParams(window.location.search);
+        var success = urlParams.get('success');
+        var placaError = urlParams.get('placaError');
+
+        if (success === 'true') {
+            // Exibe um pop-up com a mensagem de sucesso
+            alert("Seu cadastro foi realizado com sucesso.");
+            // Redireciona para a página de cadastro
+            window.location.href = "cadastroVeiculo.jsp";
+        }
+
+        if (placaError === 'true') {
+            // Exibe um pop-up com a mensagem de erro
+            alert("A placa informada já está cadastrada.");
+            // Remove o parâmetro da URL para evitar que o pop-up seja exibido novamente
+            var url = new URL(window.location.href);
+            url.searchParams.delete('placaError');
+            window.history.replaceState({}, '', url);
+        }
     </script>
-    </body>
+</body>
 </html>
 
 <% } %>

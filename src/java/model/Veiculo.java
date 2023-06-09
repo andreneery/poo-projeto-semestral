@@ -15,7 +15,7 @@ public class Veiculo {
                 + "    modelo VARCHAR(50) NOT NULL,"
                 + "    marca VARCHAR(50) NOT NULL,"
                 + "    cor VARCHAR(50) NOT NULL,"
-                + "    placa VARCHAR(50) NOT NULL,"
+                + "    placa VARCHAR(50) NOT NULL UNIQUE,"
                 + "    renavam VARCHAR(50) NOT NULL,"
                 + "    ano INT NOT NULL,"
                 + "    preco DOUBLE NOT NULL"
