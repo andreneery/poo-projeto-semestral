@@ -2,7 +2,6 @@
 <%@ page import="model.Veiculo" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="org.json.JSONObject" %>
 <%@ page import="bancoDeDados.VeiculoDAO" %>
 
 <%String placaCarro = request.getParameter("placa");%>
