@@ -72,8 +72,6 @@
       if (success === 'true') {
         // Exibe um pop-up com a mensagem de sucesso
         alert("Deletado com sucesso");
-        // Redireciona para a página de cadastro
-        window.location.href = "listarCadastro.jsp";
       }
     </script>
     
