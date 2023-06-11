@@ -25,6 +25,54 @@
 <head>
     <meta charset="UTF-8">
     <title>Listagem de Veículos</title>
+    <style>
+        body {
+            background-color: #333;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ccc;
+        }
+
+        th {
+            background-color: #444;
+            color: #fff;
+        }
+
+        form {
+            display: inline;
+        }
+
+        button {
+            padding: 5px 10px;
+            background-color: #4CAF50;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
     <!-- menu -->
@@ -69,21 +117,20 @@
         </tbody>
     </table>
         
-        <script>
+    <script>
         // Verifica se há uma mensagem na URL
         var urlParams = new URLSearchParams(window.location.search);
         var success = urlParams.get('success');
         if (success === 'true') {
-          // Exibe um pop-up com a mensagem de sucesso
-          alert("Deletado com sucesso");
+            // Exibe um pop-up com a mensagem de sucesso
+            alert("Deletado com sucesso");
         }
         var mesage = urlParams.get('mesage');
         if (mesage === 'true') {
-          // Exibe um pop-up com a mensagem de sucesso
-          alert("Atualizado com sucesso");
+            // Exibe um pop-up com a mensagem de sucesso
+            alert("Atualizado com sucesso");
         }
     </script>
-    
 </body>
 </html>
 <% } %>
