@@ -17,9 +17,8 @@
     <title>Home</title>
 </head>
 <body>
+        <jsp:include page="navbar.jsp" />
     <h1>Bem-vindo, <%= username %>!</h1>
-    <!-- Conteúdo da página segura -->
-    <jsp:include page="navbar.jsp" />
 
 </body>
 </html>

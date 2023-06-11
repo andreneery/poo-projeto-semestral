@@ -75,11 +75,21 @@
     <div class="container">
         <h2>Tela de Login</h2>
         <form method="post" action="login">
-            <input type="text" placeholder="E-mail" name="email" required>
-            <input type="password" placeholder="Senha" name="password" required>
-            <input type="submit" value="Entrar">
-            <p class="forgot-password"><a href="redefinir_senha.html">Esqueceu a senha?</a></p>
-        </form>
+        <input type="text" id="username" name="username" required><br>
+        <input type="password" id="password" name="password" required><br>
+
+        <input type="submit" value="Entrar">
+    </form>
     </div>
+    
+    <script>
+        // Verifica se há uma mensagem de erro na URL
+        var urlParams = new URLSearchParams(window.location.search);
+        var error = urlParams.get('error');
+        if (error) {
+            // Exibe um pop-up com a mensagem de erro
+            alert(decodeURIComponent(error));
+        }
+    </script>
 </body>
 </html>

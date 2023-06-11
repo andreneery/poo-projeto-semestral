@@ -89,7 +89,8 @@
                 <th>Renavam</th>
                 <th>Ano</th>
                 <th>Preço</th>
-                <th>Ações</th>
+                <th>Excluir</th>
+                <th>Editar</th>
             </tr>
         </thead>
         <tbody>
