@@ -80,6 +80,9 @@
 
         <input type="submit" value="Entrar">
     </form>
+    <button type="button">
+        <a href="cadastroUsuario.jsp">Cadastrar Consultor</a>
+    </button>
     </div>
     
     <script>
