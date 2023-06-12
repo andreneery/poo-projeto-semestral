@@ -3,64 +3,9 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="css/cadastroUsuario.css">
+    <link rel="stylesheet" type="text/css" href="css/global.css">
     <title>Cadastro de Usuário</title>
-    <style>
-        body {
-            background-color: #333;
-            color: #fff;
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-
-        h1 {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        form {
-            max-width: 400px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #444;
-            border-radius: 10px;
-            box-shadow: 0 10px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-        }
-
-        input[type="text"],
-        input[type="email"],
-        input[type="password"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-
-        input[type="submit"] {
-            width: 100%;
-            padding: 10px;
-            border: none;
-            background-color: #4CAF50;
-            color: #fff;
-            cursor: pointer;
-            border-radius: 4px;
-        }
-
-        a {
-            display: block;
-            text-align: center;
-            margin-top: 20px;
-            color: #fff;
-            text-decoration: none;
-        }
-    </style>
 </head>
 <body>
     <h1>Cadastro de Usuário</h1>
