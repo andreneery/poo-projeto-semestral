@@ -25,10 +25,14 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="css/cadastroVeiculo.css">
+        <link rel="stylesheet" type="text/css" href="css/global.css">
         <title>Atualizar Veículo</title>
     </head>
     <body>
         <jsp:include page="navbar.jsp" />
+        
+        <h1>Atualizar Veículo</h1>
 
         <form action="./atualizarVeiculo?placa=<%= placaCarro %>" method="post">
             <% for (Veiculo veiculo : veiculos) { %>

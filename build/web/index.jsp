@@ -11,7 +11,7 @@
     <div class="container">
         <div class="image"></div>
             <div class="form">
-                <h2>Tela de Login</h2>
+                <h2>Faça seu Login</h2>
                 <form method="post" action="login">
                 <input type="text" id="username" name="username" placeholder="Username" required><br>
                 <input type="password" id="password" name="password" placeholder="Senha" required><br>

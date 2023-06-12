@@ -14,11 +14,16 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="css/cadastroVeiculo.css">
+    <link rel="stylesheet" type="text/css" href="css/global.css">
     <title>Home</title>
 </head>
 <body>
-        <jsp:include page="navbar.jsp" />
-    <h1>Bem-vindo, <%= username %>!</h1>
+    <jsp:include page="navbar.jsp" />
+    
+    <div class="header">
+        <h1>Bem-vindo(a), <%= username %>!</h1>
+    </div>
 
 </body>
 </html>
