@@ -1,0 +1,105 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+    background-color: black;
+}
+
+.container {
+  display: flex;
+  height: 100vh;
+  /*defini a altura de um elemento em relação à altura da janela de visualização*/
+}
+
+.image {
+  flex: 1;
+  background-image: url('../imagem/logo.jpg');
+  background-size: 100% 100%;
+}
+
+.form {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #312E38;
+  padding: 20px;
+}
+
+@media (max-width: 768px) {
+    .image {
+        flex: none;
+        background-image: none;
+    }
+}
+
+h2 {
+    color: white;
+    font-size: 1.75rem;
+    font-family: 'Roboto Slab';
+    font-style: normal;
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+
+input {
+    width: 15.5rem;
+    height: 2.5rem;
+    background: black;
+    border-radius: 10px;
+    
+    color:white;
+    font-family: 'Roboto Slab';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1rem;
+    padding-left: 1rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+form button {
+    width: 16rem;
+    height: 3rem;
+    background: #fe0000;
+    border-radius: 10px;
+    
+    font-family: 'Roboto Slab';
+    color: white;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+.buttonConsultor {
+    width: 16rem;
+    height: 3rem;
+    
+    background-color: transparent;
+    border: none;
+}
+
+.buttonConsultor a {
+    font-family: 'Roboto Slab';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1rem;
+    color: white;
+    text-decoration: none;
+}
+
+.buttonConsultor a:hover {
+    font-family: 'Roboto Slab';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1rem;
+    color: #fe0000;
+    text-decoration: none;
+}
