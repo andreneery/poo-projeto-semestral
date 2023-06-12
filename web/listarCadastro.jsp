@@ -56,7 +56,7 @@
                     <td><%= veiculo.getPlaca() %></td>
                     <td><%= veiculo.getRenavam() %></td>
                     <td><%= veiculo.getAno() %></td>
-                    <td><%= veiculo.getPreco() %></td>
+                    <td class="currency"><%= veiculo.getPreco() %></td>
                     <td>
                         <form action="excluirVeiculo?placa=<%= veiculo.getPlaca() %>" method="post">
                             <button class="buttonDelet" type="submit">Deletar</button>
@@ -84,6 +84,16 @@
         if (mesage === 'true') {
             // Exibe um pop-up com a mensagem de sucesso
             alert("Atualizado com sucesso");
+        }
+        
+        //converter valores do preço para reais
+        var currencyElements = document.getElementsByClassName("currency");
+        for (var i = 0; i < currencyElements.length; i++) {
+          var value = parseFloat(currencyElements[i].innerHTML);
+          currencyElements[i].innerHTML = value.toLocaleString("pt-BR", {
+            style: "currency",
+            currency: "BRL",
+          });
         }
     </script>
 </body>
