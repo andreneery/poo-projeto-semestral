@@ -18,6 +18,8 @@
     <title>Cadastro de Veículo</title>
     <link rel="stylesheet" type="text/css" href="css/cadastroVeiculo.css">
     <link rel="stylesheet" type="text/css" href="css/global.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
 </head>
 <body>
     <!-- menu -->
@@ -44,7 +46,7 @@
         <input type="text" id="ano" name="ano" required><br><br>
         
         <label for="preco">Preço:</label>
-        <input type="text" id="preco" name="preco" required><br><br>
+        <input type="text" id="preco" name="preco" onkeypress="$(this).mask('######0.00', {reverse: true});" required><br><br>
         
         <input type="submit" value="Cadastrar">
     </form>
@@ -68,6 +70,24 @@
             var url = new URL(window.location.href);
             url.searchParams.delete('placaError');
             window.history.replaceState({}, '', url);
+        }
+        
+        //formartar o valor preço para ser mostrado em moeda
+        function formatarMoeda() {
+            var elemento = document.getElementById('valor');
+            var valor = elemento.value;
+
+            valor = valor + '';
+            valor = parseInt(valor.replace(/[\D]+/g, ''));
+            valor = valor + '';
+            valor = valor.replace(/([0-9]{2})$/g, ",$1");
+
+            if (valor.length > 6) {
+                valor = valor.replace(/([0-9]{3}),([0-9]{2}$)/g, ".$1,$2");
+            }
+
+            elemento.value = valor;
+            if(valor == 'NaN') elemento.value = '';
         }
     </script>
 </body>

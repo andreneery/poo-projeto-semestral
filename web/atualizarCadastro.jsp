@@ -27,6 +27,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="css/cadastroVeiculo.css">
         <link rel="stylesheet" type="text/css" href="css/global.css">
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
         <title>Atualizar Veículo</title>
     </head>
     <body>
@@ -55,7 +57,7 @@
             <input type="text" id="ano" value="<%= veiculo.getAno() %>" name="ano" required><br><br>
 
             <label for="preco">Preço:</label>
-            <input type="text" id="preco" value="<%= veiculo.getPreco() %>" name="preco" required><br><br>
+            <input type="text" id="preco" value="<%= veiculo.getPreco() %>" name="preco" onkeypress="$(this).mask('######0.00', {reverse: true});" required><br><br>
 
             <input type="submit" value="Atualizar">
             <% } %>
